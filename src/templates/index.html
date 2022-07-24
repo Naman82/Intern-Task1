@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+<style>
+    .container{
+        /* background-image: url(../static/img/hero-bg.png); */
+        display: flex;
+        width:100%;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+    }
+</style>
+
+<div class="container">
+    <!-- <img src="{% static 'img/hero-bg.png' %}" alt=""> -->
+    <a href="{% url 'patient' %}" class="btn btn-primary mx-5">Patient</a>
+    <a href="{% url 'doctor' %}" class="btn btn-danger mx-5">Doctor</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block body %}
+
+<style>
+
+    .container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+    }
+
+    .div{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .card{
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    }
+    .red-text{
+      color: red;
+    }
+
+</style>
+
+<div class="container">
+    <div class="card" style="width: 30rem;">
+        <div class="card-body">
+          <h5 class="card-title text-center mb-4">DOCTOR REGISTER</h5>
+          {% if messages %}
+                {% for message in messages %}
+                   <p class="text-center red-text"> {{ message }} </p>
+                {% endfor %}
+          {% endif %}
+          <form action="{% url 'doctor' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+          <div class="div">
+              <div class="form-floating mb-3 mx-1" style="width: 50%;">
+                <input type="text" class="form-control" id="floatingInput1" placeholder="First Name" name="first_name">
+                <label for="floatingInput1">First Name</label>
+              </div>
+              <div class="form-floating mb-3 mx-1" style="width: 50%;">
+                <input type="text" class="form-control" id="floatingInput2" placeholder="Last Name" name="last_name">
+                <label for="floatingInput2">Last Name</label>
+              </div>
+          </div>
+
+          <div class="form-floating mb-3 mx-1">
+            <input type="text" class="form-control" id="floatingInput3" placeholder="Username" name="username">
+            <label for="floatingInput3">Username</label>
+          </div>
+
+          <div class="form-floating mb-3 mx-1">
+            <input type="email" class="form-control" id="floatingInput4" placeholder="abc@gmail.com" name="email">
+            <label for="floatingInput4">Email</label>
+          </div>
+
+          <div class="div">
+              <div class="form-floating mb-3 mx-1">
+                <input type="text" class="form-control" id="floatingInput5" placeholder="State" name="state">
+                <label for="floatingInput5">State</label>
+              </div>
+              <div class="form-floating mb-3 mx-1">
+                <input type="text" class="form-control" id="floatingInput5" placeholder="City" name="city">
+                <label for="floatingInput5">City</label>
+              </div>
+              <div class="form-floating mb-3 mx-1">
+                <input type="text" class="form-control" id="floatingInput5" placeholder="Pincode" name="pincode">
+                <label for="floatingInput5">Pincode</label>
+              </div>
+          </div>
+
+          <h6 class="mb-2 mx-1">Profile Photo</h6>
+          <input class="mb-3 mx-1" type="file" accept="image/*" id="photoInput" onchange="loadFile(event)" name="photoInput">
+          <div class="div">
+              <img class="mb-3 " id="output"/ style="width: 22rem; height: 18rem;" hidden>
+          </div>
+
+
+          <div class="form-floating mb-4">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+            <label for="floatingPassword">Password</label>
+          </div>
+
+          <div class="form-floating mb-4">
+            <input type="password" class="form-control" id="floatingPassword1" placeholder="Password" name="password2">
+            <label for="floatingPassword1">Confirm Password</label>
+          </div>
+          <p  class="card-text text-center">Already a User? <a href="{% url 'doctor_login' %}" class="card-link">Login Here</a></p>
+          <div class="text-center mt-4 mb-2">
+              <button type="submit" class="btn btn-success ">Register</button>
+          </div>
+        </form>
+        </div>
+      </div>
+</div>
+
+
+<script>
+    var loadFile = function(event) {
+      var reader = new FileReader();
+      reader.onload = function(){
+        document.getElementById('output').hidden = false;
+        var output = document.getElementById('output');
+        output.src = reader.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    };
+  </script>
+
+
+{% endblock %}
