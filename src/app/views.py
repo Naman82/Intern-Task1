@@ -115,10 +115,12 @@ def doctor_login(request):
         return render(request,'doctor_login.html')
 
 def patient_home(request):
-    return render(request,'patient_home.html')
+    users=User.objects.all()
+    return render(request,'patient_home.html',{'users':users})
 
 def doctor_home(request):
-    return render(request,'doctor_home.html')
+    users=User.objects.all()
+    return render(request,'doctor_home.html',{'users':users})
     
 
 def logout(request):

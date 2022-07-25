@@ -7,17 +7,30 @@
 
 {% block body %}
 <style>
-    .container{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
+    .card{
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     }
 </style>
 
-<div class="container">
+<div class="container text-center my-5">
     <h1>Welcome to Doctor HomePage.</h1>
 </div>
-
+{% for person in users %}
+{% if person.is_doctor == True %}
+<div class=" container">
+    <div class="card mx-3 mb-4" style="width: 18rem;">
+        <img src="{{person.profile_pic.url}}" class="card-img-top mt-4" style="border-radius: 50%; width: 9rem; height: 9rem; border: 1px solid black; margin: auto;">
+        <hr>
+        <div class="card-body text-center">
+          <h5 class="m-0">{{person.first_name}} {{person.last_name}}</h5>
+          <p class="mb-1"><small>@{{person.username}}</small></p>
+          <p class="">{{person.email}}</p>
+         
+          <p>Address : {{person.city}} - {{person.pincode}}, {{person.state}}</p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
 
 {% endblock %}
