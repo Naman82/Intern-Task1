@@ -10,12 +10,21 @@
     .card{
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     }
+
+    .div{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
 </style>
 
 <div class="container text-center my-5">
-    <h1>Welcome to Doctor HomePage.</h1>
+    <h1>Welcome to Doctor HomePage</h1>
 </div>
-{% for person in users %}
+
+
+
+<!-- {% for person in users %}
 {% if person.is_doctor == True %}
 <div class=" container">
     <div class="card mx-3 mb-4" style="width: 18rem;">
@@ -31,6 +40,82 @@
       </div>
     </div>
     {% endif %}
-    {% endfor %}
+    {% endfor %} -->
+
+
+    <!-- Button trigger modal -->
+    <div class="text-center">
+      <button type="button" class="btn btn-primary mx-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          Add Post
+        </button>
+        <a href="{% url 'drafts' %}" class="btn btn-primary mx-3">Drafts</a>
+        <a href="{% url 'allposts' %}" class="btn btn-primary mx-3">Posts</a>
+    </div>
+  
+  <!-- Modal -->
+  <div class="modal modal-lg fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center" id="staticBackdropLabel">CREATE POST</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="{% url 'post_form' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-4">
+                  <label for="exampleInputEmail1" class="form-label">Title</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="title" required>
+                </div>
+                <select class="form-select mb-4" aria-label="Default select example" name="category" required>
+                    <option selected disabled>Choose Category</option>
+                    <option value="Mental Health">Mental Health</option>
+                    <option value="Heart Disease">Heart Disease</option>
+                    <option value="Covid 19">Covid 19</option>
+                    <option value="Immunization">Immunization</option>
+                  </select>
+                <div class="mb-3 ">
+                    <label for="exampleFormControlTextarea1" class="form-label">Content</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" style="resize: none;" name="content"></textarea>
+                  </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea2" class="form-label">Summary</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea2" rows="5" style="resize: none;" name="summary"></textarea>
+                  </div>
+                  <input type="hidden" value="" name="is_draft" id="is_draft">
+
+                  <input class=" mt-3 mb-3 mx-1" type="file" accept="image/*" id="photoInput" onchange="loadFile(event)" name="photoInput">
+                    <div class="div">
+                        <img class="mb-3 " id="output" style="width: 25rem; height: 25rem;" hidden>
+                    </div>
+
+            </div>
+            <div class="mx-auto mb-4">
+                <!-- <button type="button" class="btn btn-secondary mx-2">Draft</button>
+                <button type="button" class="btn btn-primary mx-2">Post</button> -->
+                <input type="submit" class="btn btn-secondary mx-2" name="True" value="Draft" onclick="return buttonClick(this)"/>
+                <input type="submit" class="btn btn-primary mx-2" name="False" value="Post" onclick="return buttonClick(this)"/>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function buttonClick(theButton){
+        document.getElementById('is_draft').value = theButton.name;
+        return true;
+    }
+
+    var loadFile = function(event) {
+      var reader = new FileReader();
+      reader.onload = function(){
+        document.getElementById('output').hidden = false;
+        var output = document.getElementById('output');
+        output.src = reader.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    };
+  </script>
 
 {% endblock %}

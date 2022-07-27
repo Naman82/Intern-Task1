@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block body %}
+
+<style>
+    
+    .card{
+        display: flex;
+        flex-direction: row;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    }
+
+    .capital{
+        text-transform: uppercase;
+    }
+
+    
+</style>
+
+<div class="container text-center my-5">
+    <h1>All Drafts</h1>
+    
+</div>
+
+
+    {% for post in posts %}
+    {% if post.is_draft == True %}
+    <div class=" container">
+    <!-- {% if post.user == request.user %} -->
+    <div class="card mx-3 my-5"  style="width: 78rem; height: 35rem;">
+        <img src="{{post.image.url}}" class="card-img-top" style=" width: 43rem; height: 35rem;">
+        <hr>
+        <div class="card-body">
+          <h3 class="card-title capital text-center mb-3 mt-3">{{post.title}}</h3>
+          <p class="mb-4 text-center">(<small>{{post.category}}</small>)</p>
+          <p class="card-text mb-4 mx-2">{{post.content}}</p>
+          <h5 class="card-title mb-3">Summary</h5>
+          <p class="card-text mx-2"><i>{{ post.summary|truncatewords:15 }}</i></p>
+          <form action="{% url 'draftpost' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" value="{{post.pk}}" name="postid">
+            <button type="submit" class="btn btn-primary">Post</button>
+          </form>
+        </div>
+      </div>
+      <!-- {% endif %} -->
+      </div>
+    {% endif %}
+    {% endfor %}
+
+    {% endblock %}

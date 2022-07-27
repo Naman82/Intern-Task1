@@ -40,14 +40,14 @@
 </style>
 
 <div class="container text-center my-5">
-    <h1>Welcome to Patient HomePage.</h1>
+    <h1>Welcome to Patient HomePage</h1>
     
 </div>
 
 <div class="div">
-    <a href="{% url 'patient_home' %}" class="active">Home</a>
+    <a href="{% url 'patient_home' %}">Home</a>
     <a href="{% url 'mental_health' %}" >Mental Health</a>
-    <a href="{% url 'heart_disease' %}" >Heart Disease</a>
+    <a href="{% url 'heart_disease' %}" class="active">Heart Disease</a>
     <a href="{% url 'covid_19' %}" >Covid 19</a>
     <a href="{% url 'immunization' %}" >Immunization</a>
 </div>
@@ -65,12 +65,12 @@
     </ul>
   </nav> -->
 
-<!-- 
+
     {% for post in posts %}
     {% if post.is_draft == False %}
     <div class=" container">
-    {% if post.category == "Mental Health" %}
-    <div class="card mx-3 my-5" id="mental-health" style="width: 78rem; height: 35rem;">
+    {% if post.category == "Heart Disease" %}
+    <div class="card mx-3 my-5"  style="width: 78rem; height: 35rem;">
         <img src="{{post.image.url}}" class="card-img-top" style=" width: 43rem; height: 35rem;">
         <hr>
         <div class="card-body">
@@ -85,7 +85,7 @@
       {% endif %}
       </div>
     {% endif %}
-    {% endfor %} -->
+    {% endfor %}
 
 
     

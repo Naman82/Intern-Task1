@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import auth,User
 from django.contrib import messages
 
+from app.models import Post
+
 User = get_user_model()
 
 # Create your views here.
@@ -115,8 +117,7 @@ def doctor_login(request):
         return render(request,'doctor_login.html')
 
 def patient_home(request):
-    users=User.objects.all()
-    return render(request,'patient_home.html',{'users':users})
+    return render(request,'patient_home.html')
 
 def doctor_home(request):
     users=User.objects.all()
@@ -126,3 +127,50 @@ def doctor_home(request):
 def logout(request):
     auth.logout(request)
     return redirect('/')
+
+
+def post_form(request):
+    if request.method == 'POST':
+        title=request.POST['title']
+        category=request.POST['category']
+        content=request.POST['content']
+        summary=request.POST['summary']
+        image=request.FILES['photoInput']
+        is_draft=request.POST['is_draft']
+
+        post=Post(user=request.user,title=title,category=category,summary=summary,content=content,image=image,is_draft=is_draft)
+        post.save()
+
+    return render(request,'doctor_home.html')
+
+def mental_health(request):
+    posts=Post.objects.all()
+    return render(request,'patient_home1.html',{'posts':posts})
+
+def heart_disease(request):
+    posts=Post.objects.all()
+    return render(request,'patient_home2.html',{'posts':posts})
+
+def covid_19(request):
+    posts=Post.objects.all()
+    return render(request,'patient_home3.html',{'posts':posts})
+
+def immunization(request):
+    posts=Post.objects.all()
+    return render(request,'patient_home4.html',{'posts':posts})
+
+def drafts(request):
+    posts=Post.objects.all()
+    return render(request,'doctor_posts.html',{'posts':posts})
+
+def allposts(request):
+    posts=Post.objects.all()
+    return render(request,'doctor_allposts.html',{'posts':posts})
+
+def draftpost(request):
+    if request.method == 'POST':
+        postid=request.POST['postid']
+    post=Post.objects.get(pk=postid)
+    post.is_draft=False
+    post.save()
+    return render(request,'doctor_home.html')
