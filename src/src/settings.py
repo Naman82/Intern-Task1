@@ -26,7 +26,7 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -82,7 +82,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.getenv('NAME'),
-        'HOST': '127.0.0.1',
+        'HOST': os.getenv('HOST'),
         'PORT': os.getenv('PORT'),
         'USER': os.getenv('USER'),
         'PASSWORD': os.getenv('PASSWORD'),
