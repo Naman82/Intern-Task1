@@ -18,5 +18,9 @@ urlpatterns=[
     path('doctor/drafts/',views.drafts,name='drafts'),
     path('doctor/posts/',views.allposts,name='allposts'),
     path('doctor/draftpost/',views.draftpost,name='draftpost'),
-
+    # path('google_oauth/redirect/',views.RedirectOauthView, name='RedirectOauthView'),
+    # path('google_oauth/callback/',views.CallbackView)
+    # path('events/',views.events,name='events'),
+    path('appointment/',views.appointment,name='appointment'),
+    path('appointment/create/',views.create_appointment,name='create_appointment'),
 ]

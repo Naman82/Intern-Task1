@@ -19,3 +19,13 @@ class Post(models.Model):
     content=models.TextField(blank=True, null=True)
     image=models.ImageField(upload_to='post/images', blank=True, null=True)
     is_draft=models.BooleanField(default=False)
+
+
+class Appointment(models.Model):
+    doctor_name = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='%(class)s_doctor')
+    patient_name = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='%(class)s_patient')
+    appointment_date = models.DateField()
+    appointment_time = models.TimeField()
+    appointment_end_time = models.TimeField()
